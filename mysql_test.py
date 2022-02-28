@@ -1,11 +1,12 @@
 import mysql.connector
+from dynaconf import settings
 
 class WORD_POOL:
     def __init__(self):
         self.mydb = mysql.connector.connect(
-            host='localhost',
-            user='root',
-            password='123456',
+            host=settings['host'],
+            user=settings['user'],
+            password=settings['password'],
             database='mydatabase'
         )
 
