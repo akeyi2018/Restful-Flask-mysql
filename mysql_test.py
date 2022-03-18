@@ -10,9 +10,9 @@ class WORD_POOL:
             password=settings.PD,
             database='yama_db'
         )
-
+        self.curs = self.mydb.cursor(dictionary=True)
     def get_rec(self):
-        curs = self.mydb.cursor(dictionary=True)
+        
         # curs.execute('CREATE DATABASE mydatabase')
         # curs.execute("CREATE TABLE customers (id VARCHAR(10), name VARCHAR(255))")
         # curs.execute("SHOW TABLES")
@@ -31,24 +31,28 @@ class WORD_POOL:
         # mycursor.close()
         # return myresult
     
+    def create_table(self, tbl):
+        self.curs.execute("CREATE TABLE %s(id VARCHAR(10), age VARCHAR(3))"%(tbl))
+
     def get_all_record(self):
-        curs = self.mydb.cursor(dictionary=True)
-        curs.execute("SELECT * FROM customers")
-        return curs.fetchall()
+        self.curs.execute("SELECT * FROM customers")
+        return self.curs.fetchall()
 
     def insert(self, id, name):
-        curs = self.mydb.cursor(dictionary=True)
         sql = "INSERT INTO customers (id, name) VALUES (%s, %s)"
         val = (id, name)
-        curs.execute(sql, val)
+        self.curs.execute(sql, val)
         self.mydb.commit()
 
 if __name__ == '__main__':
-    ins = WORD_POOL()
+    cls = WORD_POOL()
+
+    cls.create_table('TBL')
 
     # ins.insert('1003','satou')
 
-    print(ins.get_all_record())
+    # print(ins.get_all_record())
+
     # res = ins.get_rec()
     # print(res)
 
