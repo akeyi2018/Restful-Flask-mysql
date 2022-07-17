@@ -9,4 +9,4 @@ user = os.getenv('user')
 host = os.getenv('host')
 
 res = f'{user};{host};'
-# print(res)
+print(res)
